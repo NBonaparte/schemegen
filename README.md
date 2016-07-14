@@ -30,6 +30,8 @@ Template files should be put in `~/.config/schemegen/templates`. Examples are pr
 | white         | `$white`        |
 
 Generated configs will be found in `~/.config/schemegen/configs`. It is recommended to symlink them to their default locations.
+### Xresources
+The `Xresources.template` creates an Xresources variables file, which will be imported in the main `~/.Xresources` file. The variables for each color are listed in the template file (merely the same as above minus the `$`).
 ## Usage
 
 ### Accessing images

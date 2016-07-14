@@ -1,0 +1,75 @@
+[options]
+size_hints = true
+scroll_on_output = false
+scroll_on_keystroke = true
+audible_bell = false
+mouse_autohide = false
+allow_bold = false
+dynamic_title = true
+urgent_on_bell = true
+clickable_url = true
+font = Source Code Pro for Powerline 10
+scrollback_lines = 1000
+search_wrap = false
+icon_name = terminal
+geometry = 720x480
+padding = 2
+# "system", "on" or "off"
+cursor_blink = system
+
+# "block", "underline" or "ibeam"
+cursor_shape = block
+
+# $BROWSER is used by default
+#browser = firefox
+
+# set size hints for the window
+#size_hints = false
+
+# emit escape sequences for other keys modified by Control
+#modify_other_keys = false
+
+[colors]
+
+
+
+# 20% background transparency (requires a compositor)
+#background = rgba(63, 63, 63, 0.8)
+
+# if unset, will reverse foreground and background
+highlight =
+
+#cursor = #dcdccc
+foreground = $fg
+foreground_bold = $fg
+background = $bg
+# colors from color0 to color254 can be set
+color0 = $black
+color1 = $red
+color2 = $green
+color3 = $yellow
+color4 = $blue
+color5 = $magenta
+color6 = $cyan
+color7 = $lightgray
+color8 = $darkgray
+color9 = $lightred
+color10 = $lightgreen
+color11 = $lightyellow
+color12 = $lightblue
+color13 = $lightmagenta
+color14 = $lightcyan
+color15 = $white
+
+[hints]
+#font = Monospace 12
+#foreground = #dcdccc
+#background = #3f3f3f
+#active_foreground = #e68080
+#active_background = #3f3f3f
+#padding = 2
+#border = #3f3f3f
+#border_width = 0.5
+#roundness = 2.0
+
+# vim: ft=dosini cms=#%s

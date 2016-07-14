@@ -1,0 +1,20 @@
+#define bg		$bg
+#define fg		$fg
+
+#define black		$black
+#define red		$red
+#define green		$green
+#define yellow		$yellow
+#define blue		$blue
+#define magenta		$magenta
+#define cyan		$cyan
+#define lightgray	$lightgray
+
+#define darkgray	$darkgray
+#define lightred	$lightred
+#define lightgreen	$lightgreen
+#define lightyellow	$lightyellow
+#define lightblue	$lightblue
+#define lightmagenta	$lightmagenta
+#define lightcyan	$lightcyan
+#define white		$white

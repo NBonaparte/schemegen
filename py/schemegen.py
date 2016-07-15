@@ -4,6 +4,7 @@ import os
 import argparse
 import sys
 from collections import OrderedDict
+from subprocess import call
 import coloranalyze
 data_loc = os.path.expanduser("~") + "/.config/schemegen"
 
@@ -92,8 +93,19 @@ def config_gen(hex_dict):
         if xres_string not in orig:
             with open(xres, 'w') as f:
                 f.write(xres_string + "\n" + orig)
-        print("Xresources updated, run xrdb ~/.Xresources to reload it")
+            print("Xresources updated with \"" + xres_string + "\".")
 
+def post_install():
+    # runs a post install script
+    script = data_loc + "/post.sh"
+    if os.path.isfile(script):
+        try:
+            call(script)
+            print("Ran post install script.")
+        except PermissionError:
+            print("Could not run post install script because of permission issues. Try running \"chmod +x " + script + "\".")
+    else:
+        print("No post install script detected at " + script + ", exiting.")
 
 def yes_no(question):
     # simple function returning yes/no boolean for stdin questions
@@ -141,5 +153,6 @@ if __name__ == "__main__":
     else:
         if yes_no("Are you sure you want to overwrite configs?"):
             config_gen(hex_dict)
+            post_install()
         else:
             sys.exit(0)

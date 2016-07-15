@@ -13,7 +13,7 @@ Template files should be put in `~/.config/schemegen/templates`. Examples are pr
 
 | Color         | Variable        | Xresources Variable |
 |---------------|-----------------|---------------------|
-| background    |`$bg`            |`bg`                 |
+| background    | `$bg`           | `bg`                |
 | foreground    | `$fg`           | `fg`                |
 | black         | `$black`        | `black`             |
 | red           | `$red`          | `red`               |
@@ -33,6 +33,8 @@ Template files should be put in `~/.config/schemegen/templates`. Examples are pr
 | white         | `$white`        | `white`             |
 
 Generated configs will be found in `~/.config/schemegen/configs`. It is recommended to symlink them to their default locations.
+### Post-install script
+A post-install script can be added at `~/.config/schemegen/post.sh`. It will be run after writing to configs, and is useful for commands like `xrdb ~/.Xresources`. The user should have permission to execute the file.
 ## Usage
 
 ### Accessing images

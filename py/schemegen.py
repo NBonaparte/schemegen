@@ -18,10 +18,12 @@ def colors(filename, num):
     xcols = coloranalyze.get_xcolors(cols)
     return xcols
 
-def xres_out(hex_dict):
-    # returns values in xresources format, useful for exporting to previewers like terminal.sexy
+def xres_out(hex_dict, pic_path=""):
+    # returns wallpaper path and values in xresources format, useful for exporting
     final = ""
     i = 0
+    if pic_path:
+        final += "! wallpaper: " + pic_path + "\n"
     for j, k in hex_dict.items():
         if j == "fg":
             final += "*.foreground: " + k + "\n"
@@ -33,19 +35,22 @@ def xres_out(hex_dict):
     return final
 
 def xres_parse(name):
-    # parses xresources and returns list of colors
+    # parses xresources and returns wallpaper location (if it exists) and list of colors
+    wall = ""
     xres_list = [None] * 18
     schemes = data_loc + "/schemes"
     with open(schemes + "/" + name, 'r') as f:
         for line in f.read().splitlines():
-            if "*.color" in line:
+            if "wallpaper" in line:
+                wall = line.split()[-1]
+            elif "*.color" in line:
                 i = int(line.split()[0].replace("*.color", "").replace(":", ""))
                 xres_list[i] = line.split()[-1]
             elif "*.background" in line:
                 xres_list[16] = line.split()[-1]
             elif "*.foreground" in line:
                 xres_list[17] = line.split()[-1]
-    return xres_list
+    return (wall, xres_list)
 
 def rgb_to_hex(rgb):
     # converts list of rgb tuples to a list of hex values
@@ -54,11 +59,17 @@ def rgb_to_hex(rgb):
         hexlist.append("#%02x%02x%02x" % i)
     return hexlist
 
-def scheme_write(hex_dict, pic_name):
+def reduce_palette(hex_list):
+    # TODO: do this
+    # copies colors 0-7 to 8-15
+    reduced = []
+    return reduced
+def scheme_write(hex_dict, pic_path=""):
+    # writes result of xres_out to a scheme file
     schemes = data_loc + "/schemes"
     os.makedirs(schemes, exist_ok=True)
-    with open(schemes + "/" + pic_name, 'w') as f:
-        f.write(xres_out(hex_dict))
+    with open(schemes + "/" + os.path.splitext(os.path.basename(pic_path))[0], 'w') as f:
+        f.write(xres_out(hex_dict, pic_path))
 
 def dict_gen(colors):
     # generates an ordered dictionary for config generator
@@ -95,12 +106,16 @@ def config_gen(hex_dict):
                 f.write(xres_string + "\n" + orig)
             print("Xresources updated with \"" + xres_string + "\".")
 
-def post_install():
-    # runs a post install script
+def post_install(image):
+    # runs a post install script, with image as argument if provided
     script = data_loc + "/post.sh"
+    if os.path.isfile(image):
+        arg = image
+    else:
+        arg = ""
     if os.path.isfile(script):
         try:
-            call(script)
+            call([script, arg])
             print("Ran post install script.")
         except PermissionError:
             print("Could not run post install script because of permission issues. Try running \"chmod +x " + script + "\".")
@@ -119,25 +134,32 @@ def yes_no(question):
         return None
 
 if __name__ == "__main__":
-    #	    -option for reduced colors (0-7 equals 8-15) -> use diff canonical list or copy?
     parser = argparse.ArgumentParser(description="Color scheme generator and config manager based on coleifer's script")
-    parse_img_scheme = parser.add_mutually_exclusive_group()
+    parse_img_scheme = parser.add_mutually_exclusive_group(required=True)
     parse_img_scheme.add_argument('-i','--image',  metavar='IMG', dest='image', type=str, help='path to image')
     parser.add_argument('-n', metavar='N', dest = 'ncol', type=int, help='number of sampled colors (higher = increased accuracy)', default=64)
     parser.add_argument('-w', '--write', dest='write', action='store_true', help='creates configs based on templates')
     parse_img_scheme.add_argument('-r', '--read', metavar='SCH', dest='read', type=str, help='get color scheme from file in scheme folder')
     parser.add_argument('-p', '--print', dest='print', action='store_true', help='prints scheme in Xresources format to stdout for copying')
+    parser.add_argument('-l', '--limit', dest='limit', action='store_true', help='limits palette to 8 colors (excluding bg and fg)')
     args = parser.parse_args()
 
     if args.read:
         try:
-            hex_list = xres_parse(args.read)
+            xres_data = xres_parse(args.read)
+            hex_list = xres_data[1]
+            wallpaper = xres_data[0]
+
         except OSError:
             print("Error: could not find scheme file")
     elif args.image:
         try:
             clist = colors(args.image, args.ncol)
             hex_list = rgb_to_hex(clist)
+            if args.limit:
+                # copy cols 0-7 to 8-15
+                reduce_palette(hex_list)
+            wallpaper = args.image
         except OSError:
             print("Error: could not find image")
     else:
@@ -145,7 +167,7 @@ if __name__ == "__main__":
         sys.exit(0)
     hex_dict = dict_gen(hex_list)
     if args.image:
-        scheme_write(hex_dict, os.path.splitext(os.path.basename(args.image))[0])
+        scheme_write(hex_dict, args.image)
     if args.print:
         print(xres_out(hex_dict))
     if not args.write:
@@ -153,6 +175,6 @@ if __name__ == "__main__":
     else:
         if yes_no("Are you sure you want to overwrite configs?"):
             config_gen(hex_dict)
-            post_install()
+            post_install(wallpaper)
         else:
             sys.exit(0)

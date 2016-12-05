@@ -38,21 +38,21 @@ A post-install script can be added at `~/.config/schemegen/post.sh`. It will be 
 ## Usage
 
 ### Accessing images
-`schemegen.py -i [path/to/image]`
+`schemegen -i [path/to/image]`
 
 #### Number of colors sampled
 Increasing the number of colors sampled can improve accuracy. The default is 64 and the maximum is 256.
 
-`schemegen.py -i [path/to/image] -n 64`
+`schemegen -i [path/to/image] -n 64`
 ### Reading color schemes
 Schemegen can read Xresource files in `~/.config/schemegen/schemes`.
 
-`schemegen.py -r [filename]`
+`schemegen -r [filename]`
 ### Printing to stdout
 Along with writing to a Xresource scheme file in `~/.config/schemegen/schemes`, the scheme can also be output to stdout for easier copying.
 
-`schemegen.py ... -p`
+`schemegen ... -p`
 ### Writing to configs
 Schemegen can output configs in based on templates. See __Configuration__ for more info.
 
-`schemegen.py ... -w`
+`schemegen ... -w`

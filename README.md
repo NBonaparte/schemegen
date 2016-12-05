@@ -44,7 +44,9 @@ Template files should be put in `~/.config/schemegen/templates`. Examples are pr
 
 Generated configs will be found in `~/.config/schemegen/configs`. It is recommended to symlink them to their default locations.
 ### Post-install script
-A post-install script can be added at `~/.config/schemegen/post.sh`. It will be run after writing to configs, and is useful for commands like `xrdb ~/.Xresources`. The user should have permission to execute the file (`chmod +x [FILE]`).
+A post-install script can be added at `~/.config/schemegen/post.sh`. It will be run after writing to configs, and is useful for commands like `xrdb ~/.Xresources`. The path of the image sampled or found in the scheme file will be passed as an argument, if available. The user should have permission to execute the file (`chmod +x [FILE]`).
+
+See the example [post.sh](examples/post.sh) for reference.
 ## Usage
 Schemegen reads or generates a color scheme, and creates a scheme file in `~/.config/schemegen/schemes` by default. More options can be found below.
 

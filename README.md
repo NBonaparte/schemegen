@@ -11,7 +11,13 @@ For Arch Linux users, an AUR package is available as [schemegen-git](https://aur
 
 ## Configuration
 ### Xresources
-The `Xresources.template` creates an Xresources variables file, which will be imported in the main `~/.Xresources` file. Variables to be used in the main file are listed below.
+The `Xresources.template` creates an Xresources variables file, which will be imported in the main `~/.Xresources` file.
+Insert this line into your Xresources:
+```
+#include "$HOME/.config/schemegen/configs/Xresources"
+```
+
+Variables to be used in the main file are listed below.
 ### Templates
 Template files should be put in `~/.config/schemegen/templates`. Examples are provided in the `templates` folder. Use the following variables to represent each color:
 
@@ -38,10 +44,13 @@ Template files should be put in `~/.config/schemegen/templates`. Examples are pr
 
 Generated configs will be found in `~/.config/schemegen/configs`. It is recommended to symlink them to their default locations.
 ### Post-install script
-A post-install script can be added at `~/.config/schemegen/post.sh`. It will be run after writing to configs, and is useful for commands like `xrdb ~/.Xresources`. The user should have permission to execute the file.
+A post-install script can be added at `~/.config/schemegen/post.sh`. It will be run after writing to configs, and is useful for commands like `xrdb ~/.Xresources`. The user should have permission to execute the file (`chmod +x [FILE]`).
 ## Usage
+Schemegen reads or generates a color scheme, and creates a scheme file in `~/.config/schemegen/schemes` by default. More options can be found below.
 
-### Accessing images
+### Generating a color scheme based on an image
+Schemegen can generate a color scheme based on a specified image, picking colors closest to the canonical scheme (see coleifer's [blog post](http://charlesleifer.com/blog/suffering-for-fashion-a-glimpse-into-my-linux-theming-toolchain/)).
+
 `schemegen -i [path/to/image]`
 
 #### Number of colors sampled
@@ -49,7 +58,7 @@ Increasing the number of colors sampled can improve accuracy. The default is 64 
 
 `schemegen -i [path/to/image] -n 64`
 ### Reading color schemes
-Schemegen can read Xresource files in `~/.config/schemegen/schemes`.
+Schemegen can use existing schemes (made by itself or placed by the user) by reading from Xresource files in `~/.config/schemegen/schemes`.
 
 `schemegen -r [filename]`
 ### Printing to stdout

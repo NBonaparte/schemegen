@@ -1,9 +1,13 @@
 # schemegen
 simple, no-nonsense color scheme generator and config manager based on Charles Leifer/coleifer's [newer script](http://charlesleifer.com/blog/suffering-for-fashion-a-glimpse-into-my-linux-theming-toolchain/)
 
-## Dependencies
+## Installation
+### Dependencies
 * Python 3
 * Python-Pillow
+
+### Packages
+For Arch Linux users, an AUR package is available as [schemegen-git](https://aur.archlinux.org/packages/schemegen-git/).
 
 ## Configuration
 ### Xresources

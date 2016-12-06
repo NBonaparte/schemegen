@@ -6,7 +6,7 @@ import sys
 from collections import OrderedDict
 from subprocess import call
 import coloranalyze
-data_loc = os.path.expanduser("~") + "/.config/schemegen"
+data_loc = os.path.join(os.environ.get("XDG_CONFIG_HOME", os.path.expanduser("~/.config")), "schemegen")
 
 def colors(filename, num):
     # runs all functions in coloranalyze to obtain list of rgb tuples
@@ -84,7 +84,7 @@ def config_gen(hex_dict):
     # creates a config file for every template in the templates directory
     templates = data_loc + "/templates"
     conf_dir = data_loc + "/configs"
-    xres = os.path.expanduser("~") + "/.Xresources"
+    xres = os.path.expanduser("~/.Xresources")
     xres_conf = conf_dir + "/Xresources"
     xres_string = "#include \"" + xres_conf + "\""
     os.makedirs(conf_dir, exist_ok=True)

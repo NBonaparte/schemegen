@@ -12,7 +12,7 @@ For Arch Linux users, an AUR package is available as [schemegen-git](https://aur
 ## Configuration
 ### Xresources
 The `Xresources.template` creates an Xresources variables file, which will be imported in the main `~/.Xresources` file.
-Insert this line into your Xresources:
+This line will be inserted into your Xresources if not already there, to link to the variable file:
 ```
 #include "$HOME/.config/schemegen/configs/Xresources"
 ```
@@ -71,3 +71,5 @@ Along with writing to a Xresource scheme file in `~/.config/schemegen/schemes`, 
 Schemegen can output configs in based on templates. See __Configuration__ for more info.
 
 `schemegen ... -w`
+
+The `-f` option can be used to skip the overwriting dialog and force the config files to be overwritten.

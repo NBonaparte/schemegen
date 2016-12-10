@@ -8,7 +8,13 @@ allow_bold = false
 dynamic_title = true
 urgent_on_bell = true
 clickable_url = true
+#font = Mononoki 10
+font = FontAwesome 10
+font = Material Design Icons 10
 font = Source Code Pro for Powerline 10
+#font = Inconsolata-dz for Powerline 10
+#font = Fantasque Sans Mono 10
+#font = Hack 10
 scrollback_lines = 1000
 search_wrap = false
 icon_name = terminal
@@ -20,7 +26,7 @@ cursor_blink = system
 # "block", "underline" or "ibeam"
 cursor_shape = block
 
-# $BROWSER is used by default
+# %BROWSER is used by default%
 #browser = firefox
 
 # set size hints for the window
@@ -40,26 +46,26 @@ cursor_shape = block
 highlight =
 
 #cursor = #dcdccc
-foreground = $fg
-foreground_bold = $fg
-background = $bg
+foreground = %fg%
+foreground_bold = %fg%
+background = %bg%
 # colors from color0 to color254 can be set
-color0 = $black
-color1 = $red
-color2 = $green
-color3 = $yellow
-color4 = $blue
-color5 = $magenta
-color6 = $cyan
-color7 = $lightgray
-color8 = $darkgray
-color9 = $lightred
-color10 = $lightgreen
-color11 = $lightyellow
-color12 = $lightblue
-color13 = $lightmagenta
-color14 = $lightcyan
-color15 = $white
+color0 = %black%
+color1 = %red%
+color2 = %green%
+color3 = %yellow%
+color4 = %blue%
+color5 = %magenta%
+color6 = %cyan%
+color7 = %lightgray%
+color8 = %darkgray%
+color9 = %lightred%
+color10 = %lightgreen%
+color11 = %lightyellow%
+color12 = %lightblue%
+color13 = %lightmagenta%
+color14 = %lightcyan%
+color15 = %white%
 
 [hints]
 #font = Monospace 12

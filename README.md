@@ -68,8 +68,4 @@ Along with writing to a Xresource scheme file in `~/.config/schemegen/schemes`, 
 
 `schemegen ... -p`
 ### Writing to configs
-Schemegen can output configs in based on templates. See __Configuration__ for more info.
-
-`schemegen ... -w`
-
-The `-f` option can be used to skip the overwriting dialog and force the config files to be overwritten.
+Schemegen requests for user permission to write (and replace) configs. The `-f` option can be used to skip the overwriting dialog and force the config files to be overwritten.

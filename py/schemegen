@@ -3,10 +3,22 @@ import string
 import os
 import argparse
 import sys
+import re
 from collections import OrderedDict
 from subprocess import call
 import coloranalyze
 data_loc = os.path.join(os.environ.get("XDG_CONFIG_HOME", os.path.expanduser("~/.config")), "schemegen")
+
+class TemplateParse(string.Template):
+    delimiter = "%"
+    pattern = r"""
+                \%(?:
+                (?P<escaped>\%)                 |
+                (?P<named>[_a-z][_a-z0-9]*)\%   |
+                (?P<braced>[_a-z][_a-z0-9]*)\%  |
+                (?P<invalid>)
+                )
+            """
 
 def colors(filename, num):
     # runs all functions in coloranalyze to obtain list of rgb tuples
@@ -94,7 +106,7 @@ def config_gen(hex_dict):
         sys.exit(0)
     for temp in os.listdir(templates):
         with open(templates + "/" + temp, 'r') as f:
-            tmp = string.Template(f.read())
+            tmp = TemplateParse(f.read())
             subbed = tmp.safe_substitute(hex_dict)
         with open(conf_dir + "/" + os.path.splitext(temp)[0], 'w') as c:
             c.write(subbed)

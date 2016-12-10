@@ -21,26 +21,26 @@ Variables to be used in the main file are listed below.
 ### Templates
 Template files should be put in `~/.config/schemegen/templates`. Examples are provided in the `templates` folder. Use the following variables to represent each color:
 
-| Color         | Variable        | Xresources Variable |
-|---------------|-----------------|---------------------|
-| background    | `$bg`           | `bg`                |
-| foreground    | `$fg`           | `fg`                |
-| black         | `$black`        | `black`             |
-| red           | `$red`          | `red`               |
-| green         | `$green`        | `green`             |
-| yellow        | `$yellow`       | `yellow`            |
-| blue          | `$blue`         | `blue`              |
-| magenta       | `$magenta`      | `magenta`           |
-| cyan          | `$cyan`         | `cyan`              |
-| light gray    | `$lightgray`    | `lightgray`         |
-| dark gray     | `$darkgray`     | `darkgray`          |
-| light red     | `$lightred`     | `lightred`          |
-| light green   | `$lightgreen`   | `lightgreen`        |
-| light yellow  | `$lightyellow`  | `lightyellow`       |
-| light blue    | `$lightblue`    | `lightblue`         |
-| light magenta | `$lightmagenta` | `lightmagenta`      |
-| light cyan    | `$lightcyan`    | `lightcyan`         |
-| white         | `$white`        | `white`             |
+| Color         | Variable         | Xresources Variable |
+|---------------|------------------|---------------------|
+| background    | `%bg%`           | `bg`                |
+| foreground    | `%fg%`           | `fg`                |
+| black         | `%black%`        | `black`             |
+| red           | `%red%`          | `red`               |
+| green         | `%green%`        | `green`             |
+| yellow        | `%yellow%`       | `yellow`            |
+| blue          | `%blue%`         | `blue`              |
+| magenta       | `%magenta%`      | `magenta`           |
+| cyan          | `%cyan%`         | `cyan`              |
+| light gray    | `%lightgray%`    | `lightgray`         |
+| dark gray     | `%darkgray%`     | `darkgray`          |
+| light red     | `%lightred%`     | `lightred`          |
+| light green   | `%lightgreen%`   | `lightgreen`        |
+| light yellow  | `%lightyellow%`  | `lightyellow`       |
+| light blue    | `%lightblue%`    | `lightblue`         |
+| light magenta | `%lightmagenta%` | `lightmagenta`      |
+| light cyan    | `%lightcyan%`    | `lightcyan`         |
+| white         | `%white%`        | `white`             |
 
 Generated configs will be found in `~/.config/schemegen/configs`. It is recommended to symlink them to their default locations.
 ### Post-install script

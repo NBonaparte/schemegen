@@ -10,6 +10,7 @@ import coloranalyze
 data_loc = os.path.join(os.environ.get("XDG_CONFIG_HOME", os.path.expanduser("~/.config")), "schemegen")
 
 class TemplateParse(string.Template):
+    # template parser with tokens as %token%
     delimiter = "%"
     pattern = r"""
                 \%(?:
@@ -56,6 +57,7 @@ def xres_parse(name):
             if "wallpaper" in line:
                 wall = line.split()[-1]
             elif "*.color" in line:
+                # get index of color declaration
                 i = int(line.split()[0].replace("*.color", "").replace(":", ""))
                 xres_list[i] = line.split()[-1]
             elif "*.background" in line:
@@ -72,22 +74,26 @@ def rgb_to_hex(rgb):
     return hexlist
 
 def reduce_palette(hex_list):
-    # TODO: do this
-    # copies colors 0-7 to 8-15
-    reduced = []
-    return reduced
-def scheme_write(hex_dict, pic_path=""):
+    # copies colors 0-7 to 8-15, keeps bg (16) and fg (17)
+    hex_list[8:16] = hex_list[:8]
+    return hex_list
+
+def scheme_write(hex_dict, pic_path="", reduced=False):
     # writes result of xres_out to a scheme file
     schemes = data_loc + "/schemes"
     os.makedirs(schemes, exist_ok=True)
-    with open(schemes + "/" + os.path.splitext(os.path.basename(pic_path))[0], 'w') as f:
+    if reduced:
+        red = ".reduced"
+    else:
+        red = ""
+    with open(schemes + "/" + os.path.splitext(os.path.basename(pic_path))[0] + red, 'w') as f:
         f.write(xres_out(hex_dict, pic_path))
 
 def dict_gen(colors):
     # generates an ordered dictionary for config generator
     keylist = list(coloranalyze.canon_od.keys()) + ["bg", "fg"]
     d = OrderedDict(zip(keylist, colors))
-    # if the dict doesnt include bg or fg, create them
+    # if the dict doesn't include bg or fg, create them
     if "bg" not in d or "fg" not in d:
         d.update({"bg": d.get("black"), "fg": d.get("white")})
     return d
@@ -168,20 +174,26 @@ if __name__ == "__main__":
         try:
             clist = colors(args.image, args.ncol)
             hex_list = rgb_to_hex(clist)
-            if args.limit:
-                # copy cols 0-7 to 8-15
-                reduce_palette(hex_list)
             wallpaper = args.image
         except OSError:
             print("Error: could not find image")
     else:
         parser.print_help()
         sys.exit(0)
+
+    if args.limit:
+        reduce_palette(hex_list)
+
     hex_dict = dict_gen(hex_list)
+
     if args.image:
-        scheme_write(hex_dict, args.image)
+        scheme_write(hex_dict, args.image, args.limit)
+    elif args.limit:
+        scheme_write(hex_dict, args.read, args.limit)
+
     if args.print:
         print(xres_out(hex_dict))
+
     if args.force or yes_no("Are you sure you want to overwrite configs?"):
         config_gen(hex_dict)
         post_install(wallpaper)

@@ -48,7 +48,7 @@ A post-install script can be added at `~/.config/schemegen/post.sh`. It will be 
 
 See the example [post.sh](examples/post.sh) for reference.
 ## Usage
-Schemegen reads or generates a color scheme, and creates a scheme file in `~/.config/schemegen/schemes` by default. More options can be found below.
+Schemegen reads or generates a color scheme, creates a scheme file in `~/.config/schemegen/schemes`, and writes config files (upon user approval) by default. Options can be found below.
 
 ### Generating a color scheme based on an image
 Schemegen can generate a color scheme based on a specified image, picking colors closest to the canonical scheme (see coleifer's [blog post](http://charlesleifer.com/blog/suffering-for-fashion-a-glimpse-into-my-linux-theming-toolchain/)).

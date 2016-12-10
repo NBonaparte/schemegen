@@ -150,7 +150,6 @@ if __name__ == "__main__":
     parse_img_scheme = parser.add_mutually_exclusive_group(required=True)
     parse_img_scheme.add_argument('-i','--image',  metavar='IMG', dest='image', type=str, help='path to image')
     parser.add_argument('-n', metavar='N', dest = 'ncol', type=int, help='number of sampled colors (higher = increased accuracy)', default=64)
-    parser.add_argument('-w', '--write', dest='write', action='store_true', help='creates configs based on templates')
     parser.add_argument('-f', '--force', dest='force', action='store_true', help='force overwrite of configs')
     parse_img_scheme.add_argument('-r', '--read', metavar='SCH', dest='read', type=str, help='get color scheme from file in scheme folder')
     parser.add_argument('-p', '--print', dest='print', action='store_true', help='prints scheme in Xresources format to stdout for copying')
@@ -183,11 +182,8 @@ if __name__ == "__main__":
         scheme_write(hex_dict, args.image)
     if args.print:
         print(xres_out(hex_dict))
-    if not args.write:
-        sys.exit(0)
+    if args.force or yes_no("Are you sure you want to overwrite configs?"):
+        config_gen(hex_dict)
+        post_install(wallpaper)
     else:
-        if args.force or yes_no("Are you sure you want to overwrite configs?"):
-            config_gen(hex_dict)
-            post_install(wallpaper)
-        else:
-            sys.exit(0)
+        sys.exit(0)

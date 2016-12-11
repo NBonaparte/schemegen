@@ -19,7 +19,7 @@ This line will be inserted into your Xresources if not already there, to link to
 
 Variables to be used in the main file are listed below.
 ### Templates
-Template files should be put in `~/.config/schemegen/templates`. Examples are provided in the `templates` folder. Use the following variables to represent each color:
+Template files should be put in `~/.config/schemegen/templates`, and should have the extension `.template`. Examples are provided in the `templates` folder. Use the following variables to represent each color:
 
 | Color         | Variable         | Xresources Variable |
 |---------------|------------------|---------------------|

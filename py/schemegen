@@ -111,11 +111,12 @@ def config_gen(hex_dict):
         print("Please create templates for configs in " + templates + ", and symlink original config locations to those in " + conf_dir + ".")
         sys.exit(0)
     for temp in os.listdir(templates):
-        with open(templates + "/" + temp, 'r') as f:
-            tmp = TemplateParse(f.read())
-            subbed = tmp.safe_substitute(hex_dict)
-        with open(conf_dir + "/" + os.path.splitext(temp)[0], 'w') as c:
-            c.write(subbed)
+        if os.path.splitext(temp)[1] == ".template":
+            with open(templates + "/" + temp, 'r') as f:
+                tmp = TemplateParse(f.read())
+                subbed = tmp.safe_substitute(hex_dict)
+            with open(conf_dir + "/" + os.path.splitext(temp)[0], 'w') as c:
+                c.write(subbed)
     if os.path.isfile(xres_conf):
         with open(xres, 'r') as f:
             orig = f.read()

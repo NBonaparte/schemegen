@@ -21,26 +21,28 @@ Variables to be used in the main file are listed below.
 ### Templates
 Template files should be put in `~/.config/schemegen/templates`, and should have the extension `.template`. Examples are provided in the `templates` folder. Use the following variables to represent each color:
 
-| Color         | Variable         | Xresources Variable |
-|---------------|------------------|---------------------|
-| background    | `%bg%`           | `bg`                |
-| foreground    | `%fg%`           | `fg`                |
-| black         | `%black%`        | `black`             |
-| red           | `%red%`          | `red`               |
-| green         | `%green%`        | `green`             |
-| yellow        | `%yellow%`       | `yellow`            |
-| blue          | `%blue%`         | `blue`              |
-| magenta       | `%magenta%`      | `magenta`           |
-| cyan          | `%cyan%`         | `cyan`              |
-| light gray    | `%lightgray%`    | `lightgray`         |
-| dark gray     | `%darkgray%`     | `darkgray`          |
-| light red     | `%lightred%`     | `lightred`          |
-| light green   | `%lightgreen%`   | `lightgreen`        |
-| light yellow  | `%lightyellow%`  | `lightyellow`       |
-| light blue    | `%lightblue%`    | `lightblue`         |
-| light magenta | `%lightmagenta%` | `lightmagenta`      |
-| light cyan    | `%lightcyan%`    | `lightcyan`         |
-| white         | `%white%`        | `white`             |
+| Color         | Variable         |  Variable (no `#`) |Xresources Variable |
+|---------------|------------------|--------------------|--------------------|
+| background    | `%bg%`           |  `%@bg%`           |`bg`                |
+| foreground    | `%fg%`           |  `%@fg%`           |`fg`                |
+| black         | `%black%`        |  `%@black%`        |`black`             |
+| red           | `%red%`          |  `%@red%`          |`red`               |
+| green         | `%green%`        |  `%@green%`        |`green`             |
+| yellow        | `%yellow%`       |  `%@yellow%`       |`yellow`            |
+| blue          | `%blue%`         |  `%@blue%`         |`blue`              |
+| magenta       | `%magenta%`      |  `%@magenta%`      |`magenta`           |
+| cyan          | `%cyan%`         |  `%@cyan%`         |`cyan`              |
+| light gray    | `%lightgray%`    |  `%@lightgray%`    |`lightgray`         |
+| dark gray     | `%darkgray%`     |  `%@darkgray%`     |`darkgray`          |
+| light red     | `%lightred%`     |  `%@lightred%`     |`lightred`          |
+| light green   | `%lightgreen%`   |  `%@lightgreen%`   |`lightgreen`        |
+| light yellow  | `%lightyellow%`  |  `%@lightyellow%`  |`lightyellow`       |
+| light blue    | `%lightblue%`    |  `%@lightblue%`    |`lightblue`         |
+| light magenta | `%lightmagenta%` |  `%@lightmagenta%` |`lightmagenta`      |
+| light cyan    | `%lightcyan%`    |  `%@lightcyan%`    |`lightcyan`         |
+| white         | `%white%`        |  `%@white%`        |`white`             |
+
+Note that the `@` symbol can be prepended to the variable to prevent the final color string from including `#` (`#fff -> fff`).
 
 Generated configs will be found in `~/.config/schemegen/configs`. It is recommended to symlink them to their default locations.
 ### Post-install script

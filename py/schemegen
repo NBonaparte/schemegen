@@ -58,8 +58,12 @@ def xres_parse(name):
                 wall = line.split()[-1]
             elif "*.color" in line:
                 # get index of color declaration
-                i = int(line.split()[0].replace("*.color", "").replace(":", ""))
-                xres_list[i] = line.split()[-1]
+                try:
+                    i = int(line.split()[0].replace("*.color", "").replace(":", ""))
+                    xres_list[i] = line.split()[-1]
+                except:
+                    # not a number (perhaps IT or UL or BG)
+                    pass
             elif "*.background" in line:
                 xres_list[16] = line.split()[-1]
             elif "*.foreground" in line:

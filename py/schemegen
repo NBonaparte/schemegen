@@ -4,6 +4,7 @@ import os
 import argparse
 import sys
 import re
+import glob
 from collections import OrderedDict
 from subprocess import call
 import coloranalyze
@@ -52,7 +53,9 @@ def xres_parse(name):
     wall = ""
     xres_list = [None] * 18
     schemes = data_loc + "/schemes"
-    with open(schemes + "/" + name, 'r') as f:
+    for path in glob.iglob(schemes + "/**/" + name, recursive=True):
+        xres_path = path
+    with open(xres_path, 'r') as f:
         for line in f.read().splitlines():
             if "wallpaper" in line:
                 wall = line.split()[-1]
@@ -84,7 +87,7 @@ def reduce_palette(hex_list):
 
 def scheme_write(hex_dict, pic_path="", reduced=False):
     # writes result of xres_out to a scheme file
-    schemes = data_loc + "/schemes"
+    schemes = data_loc + "/schemes/generated"
     os.makedirs(schemes, exist_ok=True)
     if reduced:
         red = ".reduced"
@@ -201,8 +204,9 @@ if __name__ == "__main__":
             hex_list = xres_data[1]
             wallpaper = xres_data[0]
 
-        except OSError:
+        except (UnboundLocalError, OSError) as e:
             print("Error: could not find scheme file")
+            sys.exit(1)
     # if generating scheme from image
     elif args.image:
         try:

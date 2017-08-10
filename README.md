@@ -65,6 +65,10 @@ Increasing the number of colors sampled can improve accuracy. The default is 64 
 Schemegen can use existing schemes (made by itself or placed by the user) by reading from Xresource files in `~/.config/schemegen/schemes`.
 
 `schemegen -r [filename]`
+### Listing all color schemes
+All schemes found in `~/.config/schemegen/schemes` and their colors will be shown in a list.
+
+`schemegen -l`
 ### Printing to stdout
 Along with writing to a Xresource scheme file in `~/.config/schemegen/schemes/generated/`, the scheme can also be output to stdout for easier copying.
 

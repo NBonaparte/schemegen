@@ -6,8 +6,6 @@ def rotate(rgb, d):
     h, l, s = colorsys.rgb_to_hls(r/255., g/255., b/255.)
     h = (h+d) % 1
     return tuple([int(round(i * 255.)) for i in colorsys.hls_to_rgb(h, l, s)])
-    #print(final)
-    #return tuple(final)
 
 def get_split_comp(rgb, d=150):
     a = rotate(rgb, d)

@@ -44,14 +44,14 @@ canon_od =   OrderedDict([
         ("cyan", (0, 255, 255)),
         ("lightgray", (192, 192, 192)),
 
-        ("darkgray", (64, 64, 64)),
-        ("lightred", (255, 128, 128)),
-        ("lightgreen", (128, 255, 128)),
-        ("lightyellow", (255, 255, 128)),
-        ("lightblue", (128, 128, 255)),
-        ("lightmagenta", (255, 128, 255)),
-        ("lightcyan", (128, 255, 255)),
-        ("white", (255, 255, 255))
+        #("darkgray", (64, 64, 64)),
+        #("lightred", (255, 128, 128)),
+        #("lightgreen", (128, 255, 128)),
+        #("lightyellow", (255, 255, 128)),
+        #("lightblue", (128, 128, 255)),
+        #("lightmagenta", (255, 128, 255)),
+        #("lightcyan", (128, 255, 255)),
+        #("white", (255, 255, 255))
 ])
 
 def get_xcolors(colors, substitution_distance=20):

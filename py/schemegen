@@ -8,6 +8,7 @@ import glob
 from collections import OrderedDict
 from subprocess import call
 import coloranalyze
+import grapeharmony
 data_loc = os.path.join(os.environ.get("XDG_CONFIG_HOME", os.path.expanduser("~/.config")), "schemegen")
 
 class TemplateParse(string.Template):

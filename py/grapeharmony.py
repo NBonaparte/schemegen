@@ -1,21 +1,10 @@
-from grapefruit import Color
+import harmony
 import coloranalyze as ca
 # closest to canonical, then get split complementary, triad, tetrad, analogous, monotone
 
 def getAll(rgb):
-    r, g, b = rgb
-    orig = Color.NewFromRgb(r, g, b)
-    new_colors = []
-    # split complementary (150)
-    new_colors.append(i.rgb for i in orig.TriadicScheme(150, 'rgb'))
-    new_colors.append(i.rgb for i in orig.TriadicScheme(120, 'rgb'))
-    new_colors.append(i.rgb for i in orig.TetradicScheme(30, 'rgb'))
-    new_colors.append(i.rgb for i in orig.AnalogousScheme(30, 'rgb'))
-    retlist = []
-    for i in new_colors:
-        for j in i:
-            retlist.append((round(j[0]), round(j[1]), round(j[2])))
-    return retlist
+    new_colors = harmony.get_split_comp(rgb) + harmony.get_triad(rgb) + harmony.get_tetrad(rgb) + harmony.get_analog(rgb)
+    return new_colors
 
 def test(rgb):
     cols = getAll(rgb)

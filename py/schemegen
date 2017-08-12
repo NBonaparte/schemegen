@@ -25,13 +25,14 @@ class TemplateParse(string.Template):
 
 def colors(filename, num):
     # runs all functions in coloranalyze to obtain list of rgb tuples
-    raw = coloranalyze.isolate_colors(filename, num)
-    deduped = coloranalyze.dedupe(raw)
-    cols = []
-    for i in deduped:
-        cols.append(i[1])
-    xcols = coloranalyze.get_xcolors(cols)
-    return xcols
+    #raw = coloranalyze.isolate_colors(filename, num)
+    #deduped = coloranalyze.dedupe(raw)
+    #cols = []
+    #for i in deduped:
+    #    cols.append(i[1])
+    #xcols = coloranalyze.get_xcolors(cols)
+    #return xcols
+    return grapeharmony.test_full(filename)
 
 def xres_out(hex_dict, pic_path=""):
     # returns wallpaper path and values in xresources format, useful for exporting
@@ -104,6 +105,7 @@ def dict_gen(colors):
     # if the dict doesn't include bg or fg, create them
     if "bg" not in d or "fg" not in d:
         d.update({"bg": d.get("black"), "fg": d.get("white")})
+        #d.update({"bg": d.get("black"), "fg": d.get("lightgray")})
     return d
 
 def dict_clone_plain(d):
@@ -236,10 +238,10 @@ if __name__ == "__main__":
     hex_dict = dict_gen(hex_list)
 
     # write a scheme file if generated from image, or limited palette
-    if args.image:
-        scheme_write(hex_dict, args.image, args.limit)
-    elif args.limit:
-        scheme_write(hex_dict, args.read, args.limit)
+    #if args.image:
+    #    scheme_write(hex_dict, args.image, args.limit)
+    #elif args.limit:
+    #    scheme_write(hex_dict, args.read, args.limit)
 
     print("Preview:")
     preview_colors(hex_dict)
@@ -247,8 +249,8 @@ if __name__ == "__main__":
     if args.print:
         print(xres_out(hex_dict))
 
-    if args.force or yes_no("Are you sure you want to overwrite configs?"):
-        config_gen(hex_dict)
-        post_install(wallpaper)
-    else:
-        sys.exit(0)
+    #if args.force or yes_no("Are you sure you want to overwrite configs?"):
+    #    config_gen(hex_dict)
+    #    post_install(wallpaper)
+    #else:
+    #    sys.exit(0)

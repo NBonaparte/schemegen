@@ -1,5 +1,3 @@
-import functools
-from operator import methodcaller
 from grapefruit import Color
 import coloranalyze as ca
 # closest to canonical, then get split complementary, triad, tetrad, analogous, monotone
@@ -19,24 +17,11 @@ def getAll(rgb):
             retlist.append((round(j[0]), round(j[1]), round(j[2])))
     return retlist
 
-# remove light colors (only 8 in dict) so luminance can be determined later?
 def test(rgb):
     cols = getAll(rgb)
     xcols = ca.get_xcolors(cols)
-    distances = []
-    smallest = 10000000 # lol
-    for i, j in zip(xcols, ca.canon_od.values()):
-        if ca.euclidean_dist(i, j) < smallest:
-            smallest = ca.euclidean_dist(i, j)
-            closest = i
-        rgb_to_hex(i)
     return xcols
 
-def comp_dist(a, b):
-    if ca.euclidean_dist(a[0], ca.canon_od.get(a[1])) < ca.euclidean_dist(b[0], ca.canon_od.get(b[1])):
-        return -1
-    else:
-        return 1
 def dist_key(a):
     return ca.euclidean_dist(a[0], ca.canon_od.get(a[1]))
 def test_full(path):
@@ -47,12 +32,18 @@ def test_full(path):
     for i in deduped:
         cols.append(i[1])
     xcols = ca.get_xcolors(cols)
-    #colors_labeled = list(zip(xcols, ca.canon_od.keys()))
-    labeled = list(zip((ca.euclidean_dist(i, j) for i, j in zip(xcols, ca.canon_od.values())), ca.canon_od.keys()))
-    print(labeled)
+    labeled = list(zip((ca.euclidean_dist(i, j) for i, j in zip(xcols, ca.canon_od.values())), xcols, ca.canon_od.keys()))
+    #print(labeled)
     # find the color that is closest to its canonical value, preferably not black/grey/white
-    #return sorted(colors_labeled, key=functools.cmp_to_key(comp_dist))
-    return sorted(labeled)
+    labeled.sort()
+    labeled = [i for i in labeled if i[2] not in ["black", "lightgray"]]
+    print("picked " + labeled[0][2] + " to harmonize with")
+    rgb_to_hex(labeled[0][1])
+    harmonized = test(labeled[0][1])
+    #print(harmonized)
+    combined = [i[1] for i in labeled] + harmonized
+    xcol_final = ca.get_xcolors(combined)
+    return xcol_final
 
 def rgb_to_hex(rgb):
     print("#%02x%02x%02x" % rgb)

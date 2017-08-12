@@ -3,6 +3,9 @@ import math
 import heapq
 import colorsys  # stdlib
 from PIL import Image
+from colormath.color_objects import sRGBColor, LabColor
+from colormath.color_conversions import convert_color
+from colormath.color_diff import delta_e_cie2000
 
 def isolate_colors(filename, ncolors):
 	img = Image.open(filename)
@@ -22,7 +25,7 @@ def dedupe(count_color, rollup=10):
 			result[rgb] += count
 		else:
 			for rrgb in result:
-				dist = euclidean_dist(rrgb, rgb)
+				dist = delta_e(rrgb, rgb)
 				if dist < rollup:
 					result[rrgb] += count
 					break
@@ -31,8 +34,14 @@ def dedupe(count_color, rollup=10):
 
 	return sorted([(count, color) for color, count in result.items()], reverse=True)
 
-def euclidean_dist(p1, p2):
-	return math.sqrt(sum((p1[i] - p2[i]) ** 2 for i in range(3)))
+def delta_e(p1, p2):
+        r1, g1, b1 = p1
+        r2, g2, b2 = p2
+        rgb1 = sRGBColor(r1, g1, b1)
+        rgb2 = sRGBColor(r2, g2, b2)
+        lab1 = convert_color(rgb1, LabColor)
+        lab2 = convert_color(rgb2, LabColor)
+        return delta_e_cie2000(lab1, lab2)
 
 canon_od =   OrderedDict([
         ("black", (0, 0, 0)),
@@ -59,7 +68,7 @@ def get_xcolors(colors, substitution_distance=20):
 	for crgb in canon_od.values():
 		distances = []
 		for rgb in colors:
-			distance = euclidean_dist(crgb, rgb)
+			distance = delta_e(crgb, rgb)
 			heapq.heappush(distances, (distance, rgb))
 
 		# First, try the closest RGB match.
@@ -102,5 +111,3 @@ def ensure_value(rgb, low, high):
 
 # Example, to ensure that black has a value between 0 and .2:
 # fixed_black_rgb = ensure_value(black_rgb, 0.0, 0.2)
-
-

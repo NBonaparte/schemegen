@@ -5,6 +5,7 @@ simple, no-nonsense color scheme generator and config manager based on Charles L
 ### Dependencies
 * Python 3
 * Python-Pillow
+* python-colormath
 
 ### Packages
 For Arch Linux users, an AUR package is available as [schemegen-git](https://aur.archlinux.org/packages/schemegen-git/).

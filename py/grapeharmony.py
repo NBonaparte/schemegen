@@ -8,8 +8,7 @@ def getAll(rgb):
 
 def test(rgb):
     cols = getAll(rgb)
-    xcols = ca.get_xcolors(cols)
-    return xcols
+    return cols
 
 def dist_key(a):
     return ca.euclidean_dist(a[0], ca.canon_od.get(a[1]))
@@ -30,7 +29,7 @@ def test_full(path):
     rgb_to_hex(labeled[0][1])
     harmonized = test(labeled[0][1])
     #print(harmonized)
-    combined = [i[1] for i in labeled] + harmonized
+    combined = [i[1] for i in labeled] + list(harmonized)
     xcol_final = ca.get_xcolors(combined)
     return xcol_final
 

@@ -4,6 +4,7 @@ import coloranalyze as ca
 
 def getAll(rgb):
     new_colors = harmony.get_split_comp(rgb) + harmony.get_triad(rgb) + harmony.get_tetrad(rgb) + harmony.get_analog(rgb)
+    #new_colors = harmony.get_triad(rgb)
     return new_colors
 
 def test(rgb):
@@ -25,12 +26,13 @@ def test_full(path):
     # find the color that is closest to its canonical value, preferably not black/grey/white
     labeled.sort()
     labeled = [i for i in labeled if i[2] not in ["black", "lightgray"]]
-    print("picked " + labeled[0][2] + " to harmonize with")
-    rgb_to_hex(labeled[0][1])
+    print("picked " + labeled[0][2] + " to harmonize with: " + "#%02x%02x%02x" % labeled[0][1])
     harmonized = test(labeled[0][1])
     #print(harmonized)
     combined = [i[1] for i in labeled] + list(harmonized)
     xcol_final = ca.get_xcolors(combined)
+    for i in xcol_final:
+        rgb_to_hex(i)
     return xcol_final
 
 def rgb_to_hex(rgb):

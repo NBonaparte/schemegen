@@ -1,11 +1,10 @@
-import colorsys
+import hsluv
 
 def rotate(rgb, d):
     r, g, b = rgb
-    d /= 360.
-    h, l, s = colorsys.rgb_to_hls(r/255., g/255., b/255.)
-    h = (h+d) % 1
-    return tuple([int(round(i * 255.)) for i in colorsys.hls_to_rgb(h, l, s)])
+    h, s, l = hsluv.rgb_to_hsluv((r/255., g/255., b/255.))
+    h = (h+d) % 360
+    return tuple([int(round(i * 255.)) for i in hsluv.hsluv_to_rgb((h, s, l))])
 
 def get_split_comp(rgb, d=150):
     a = rotate(rgb, d)

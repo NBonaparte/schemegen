@@ -7,10 +7,6 @@ def getAll(rgb):
     #new_colors = harmony.get_triad(rgb)
     return new_colors
 
-def test(rgb):
-    cols = getAll(rgb)
-    return cols
-
 def dist_key(a):
     return ca.euclidean_dist(a[0], ca.canon_od.get(a[1]))
 def test_full(path):
@@ -27,7 +23,7 @@ def test_full(path):
     labeled.sort()
     labeled = [i for i in labeled if i[2] not in ["black", "lightgray"]]
     print("picked " + labeled[0][2] + " to harmonize with: " + "#%02x%02x%02x" % labeled[0][1])
-    harmonized = test(labeled[0][1])
+    harmonized = getAll(labeled[0][1])
     #print(harmonized)
     combined = [i[1] for i in labeled] + list(harmonized)
     xcol_final = ca.get_xcolors(combined)

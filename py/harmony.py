@@ -40,12 +40,12 @@ def ensure_saturation(rgb, l, h):
     s = max(min(v, high), low)
     return tuple([int(round(i * 255.)) for i in hsluv.hsluv_to_rgb((h, s, l))])
 
+def rgb_get_hue(rgb):
+    r, g, b = rgb
+    return hsluv.rgb_to_hsluv((r/255., g/255., b/255.))[0]
+
 def hue_dist(c1, c2):
-    r1, g1, b1 = c1
-    h1, s1, l1 = hsluv.rgb_to_hsluv((r1/255., g1/255., b1/255.))
-    r2, g2, b2 = c2
-    h2, s2, l2 = hsluv.rgb_to_hsluv((r2/255., g2/255., b2/255.))
-    return abs(h2 - h1)
+    return abs(rgb_get_hue(c1) - rgb_get_hue(c2))
 
 def rgb_to_hex(rgb):
     print("#%02x%02x%02x" % rgb)

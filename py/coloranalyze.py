@@ -3,6 +3,7 @@ import math
 import heapq
 import colorsys  # stdlib
 from PIL import Image
+import harmony
 
 def isolate_colors(filename, ncolors):
 	img = Image.open(filename)
@@ -23,6 +24,7 @@ def dedupe(count_color, rollup=10):
 		else:
 			for rrgb in result:
 				dist = euclidean_dist(rrgb, rgb)
+				#dist = harmony.hue_dist(rrgb, rgb)
 				if dist < rollup:
 					result[rrgb] += count
 					break
@@ -60,6 +62,7 @@ def get_xcolors(colors, substitution_distance=20):
 		distances = []
 		for rgb in colors:
 			distance = euclidean_dist(crgb, rgb)
+			#distance = harmony.hue_dist(crgb, rgb)
 			heapq.heappush(distances, (distance, rgb))
 
 		# First, try the closest RGB match.

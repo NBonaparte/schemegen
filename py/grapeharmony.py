@@ -6,12 +6,6 @@ def getAll(rgb):
     #new_colors = harmony.get_triad(rgb)
     return new_colors
 
-def getLoop(rgb):
-    colors = []
-    for i in range(0, 6):
-        colors.append(harmony.rotate(rgb, 60*i))
-    return colors
-
 def getMoreLoop(rgb):
     colors = []
     for i in range(0, 12):
@@ -37,7 +31,6 @@ def test_full(path):
     #print("2nd " + labeled[1][2] + " to harmonize with: " + "#%02x%02x%02x" % labeled[1][1])
     #harmonized = getAll(labeled[0][1])
     harmonized = getMoreLoop(labeled[0][1])
-    #harmonized = getLoop(labeled[1][1])
     for i in harmonized:
         rgb_to_hex(i)
     print()

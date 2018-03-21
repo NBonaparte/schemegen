@@ -22,8 +22,9 @@ def test_full(path):
     for i in deduped:
         cols.append(i[1])
     xcols = ca.get_xcolors(cols)
-    labeled = list(zip((ca.euclidean_dist(i, j) for i, j in zip(xcols, ca.canon_od.values())), xcols, ca.canon_od.keys()))
+    #labeled = list(zip((ca.euclidean_dist(i, j) for i, j in zip(xcols, ca.canon_od.values())), xcols, ca.canon_od.keys()))
     #labeled = list(zip((harmony.hue_dist(i, j) for i, j in zip(xcols, ca.canon_od.values())), xcols, ca.canon_od.keys()))
+    labeled = list(zip((harmony.cyl_dist(i, j) for i, j in zip(xcols, ca.canon_od.values())), xcols, ca.canon_od.keys()))
     labeled.sort()
     # find the color that is closest to its canonical value which is not neutral
     labeled = [i for i in labeled if i[2] not in ["black", "darkgray", "lightgray", "white"]]

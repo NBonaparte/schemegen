@@ -23,11 +23,12 @@ def dedupe(count_color, rollup=10):
 			result[rgb] += count
 		else:
 			for rrgb in result:
-				dist = euclidean_dist(rrgb, rgb)
-				#dist = harmony.hue_dist(rrgb, rgb)
-				if dist < rollup:
-					result[rrgb] += count
-					break
+                                #dist = euclidean_dist(rrgb, rgb)
+                                #dist = harmony.hue_dist(rrgb, rgb)
+                                dist = harmony.cyl_dist(rrgb, rgb)
+                                if dist < rollup:
+                                        result[rrgb] += count
+                                        break
 			else:
 				result[rgb] = count
 
@@ -61,8 +62,9 @@ def get_xcolors(colors, substitution_distance=20):
 	for crgb in canon_od.values():
 		distances = []
 		for rgb in colors:
-			distance = euclidean_dist(crgb, rgb)
+			#distance = euclidean_dist(crgb, rgb)
 			#distance = harmony.hue_dist(crgb, rgb)
+			distance = harmony.cyl_dist(crgb, rgb)
 			heapq.heappush(distances, (distance, rgb))
 
 		# First, try the closest RGB match.
